@@ -1,0 +1,58 @@
+1. What is the difference between forEach and for...of? When would you use each?
+For....Each   loop  بتاخد CallBack Function, the aim of this it هتمشى على ال  all element of Array ,not modify of the array and doesn't filter it in a new array .it show ypur result only.
+
+For....of it a  default loop for array only like(for i=0.i<arr.length;i++), 
+We use :
+forEach:
+You want to do something to every single item in an array without stopping.
+    You need the index number of the items easily.
+    You want short, clean code for simple tasks
+
+For.....of:
+when we need to stop or skip iterations early using break or continue.
+
+You are working with asynchronous code.
+
+
+========================================================================================================
+2. What is hoisting and what is the Temporal Dead Zone (TDZ)? Explain with examples.
+Hoisting:أن 
+ JavaScriptبتمشى على الملف كله و كل المتغيرلت بتعرفها و الوحيده اللى تقدر تعمل كده هي Var
+console.log(x);
+var x=6;   => in Fact this is
+ var x;
+console.log(x);
+x=6;
+
+Temporal Dead Zone: in JS Reference to period between entering the Scope (Block,Function,Module)and the point where a variable declerad .
+with let and const is initialized,during this time the variables exists in memory and any attempt to access it will throw a Refernce Error.
+
+>>>>>>>>>>>>>>>>>
+console.log(myNumber); 
+let myNumber = 42; 
+console.log(myNumber); 
+>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+=========================================================================================================
+3. What are the main differences between == and ===?
+The == operator compares only the values, ignoring their data types
+The === operator compares both the values AND the data types.
+========================================================================
+4. Explain how try-catch works and why it is important in async operations?
+How try-catch Works
+try: Runs a block of code that might cause an error.
+
+catch: Runs automatically only if an error occurs in the try block, preventing the app from crashing.
+the important is:
+1.Prevents Crashes: Unhandled errors in async code.
+2.You cannot control network speeds, server downtime, or bad API data. try-catch lets you handle these failures gracefully.
+3.make the Code is clean.
+==============================================================================
+5. What’s the difference between type conversion and coercion? Provide examples of each?
+1.Conversion:manually change a data type on purpose using built-in functions
+ex:let count = "10";
+let convertedCount = Number(count); // 10
+>>>>>>>>>>>>>>>>>
+2.Coercion:JavaScript automatically changes a data type behind the scenes to make an operation work.
+ex:let result = "5" + 2; 
+console.log(result); // 52
