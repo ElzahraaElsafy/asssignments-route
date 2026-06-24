@@ -1,0 +1,30 @@
+1. What is the Node.js Event Loop?
+The Event Loop is the mechanism that allows Node.js to handle massive amounts of concurrent tasks without slowing down, despite running on just a single main thread.
+=======================================================================================
+2. What is Libuv and What Role Does It Play?
+Libuv is the C library that acts as the engine behind Node.js. It does the heavy lifting by implementing the Event Loop itself, managing system-level asynchronous tasks (via OS kernel subsystems), and providing a background Thread Pool for tasks that can't be handled asynchronously by the operating system.
+زى مترجم بين C,C++ And JS
+=================================================================
+3. Asynchronous Operations Under the Hood
+When you run async code (like a fetch() or fs.readFile()):
+The main JavaScript thread hands the task to Libuv and immediately moves to the next line of code.
+Libuv processes the task in the background (via the OS or its Thread Pool).
+Once done, Libuv moves the task's callback to the Event Queue.
+The Event Loop waits until the main thread is completely empty, then grabs the callback from the queue and executes it.
+==================================================================================
+4. Call Stack vs. Event Queue vs. Event Loop
+
+Call Stack (The Workspace): A LIFO (Last-In, First-Out) structure where your currently executing JavaScript functions sit. Only one thing runs here at a time.
+Event Queue (The Waiting Room): A FIFO (First-In, First-Out) line where callbacks of completed async operations wait to be executed.
+
+Event Loop (The Coordinator): The mechanism that constantly checks if the Call Stack is empty. If it is, it pulls the next callback from the Event Queue and pushes it onto the Call Stack.
+=============================================================================
+5. Thread Pool & Setting Its Size
+While JS is single-threaded, Libuv maintains a background Thread Pool (default size is 4 threads) to handle heavy, blocking operations like file system I/O (fs), crypto, and zip compression (zlib).
+=========================
+process.env.UV_THREADPOOL_SIZE = 8;
+=======================================================================================================
+6. Blocking vs. Non-Blocking Execution
+Blocking (Synchronous): Functions like fs.readFileSync() completely hijack the single main thread. The Call Stack freezes until the task finishes, meaning the entire app stops responding to other users.
+
+Non-Blocking (Asynchronous): Functions like fs.readFile() register a callback, immediately hand control back to the main thread, and run quietly in the background. The app remains 100% responsive.
